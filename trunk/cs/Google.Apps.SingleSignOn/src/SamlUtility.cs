@@ -19,14 +19,12 @@ namespace Google.Apps.SingleSignOn
     /// <summary>
     /// Provides utility functions used in SAML processing.
     /// </summary>
-    public class SamlUtility
+    public static class SamlUtility
     {
-        private SamlUtility() { ;}
-
         private static Random random = new Random();
 
         private static char[] charMapping = 
-			{ 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p' };
+                { 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p' };
 
         public static string CreateId()
         {

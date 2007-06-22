@@ -24,10 +24,8 @@ namespace Google.Apps.SingleSignOn
     /// <summary>
     /// Provides methods to digital sign Xml documents.
     /// </summary>
-    internal class XmlDocumentSigner
+    internal static class XmlDocumentSigner
     {
-        private XmlDocumentSigner() { ;}
-
         public static void Sign(XmlDocument doc)
         {
             Sign(doc, LoadRsaKey());

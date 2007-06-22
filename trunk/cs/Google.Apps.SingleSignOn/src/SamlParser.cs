@@ -24,11 +24,9 @@ namespace Google.Apps.SingleSignOn
     /// <summary>
     /// Provides methods for parsing and manipulating SAML compliant Xml.
     /// </summary>
-    public class SamlParser
+    public static class SamlParser
     {
         public static readonly string DateFormatter = "yyyy-MM-ddTHH:mm:ssZ";
-
-        private SamlParser() { ;}
 
         // implementation borrowed from Google's Java API.
         public static XmlDocument UnpackRequest(string packedText)
@@ -111,10 +109,6 @@ namespace Google.Apps.SingleSignOn
             XmlDocument response = CreateRawResponseXml(args, userName);
 
             XmlDocumentSigner.Sign(response);
-
-            // TODO: validate SAML schema: http://support.microsoft.com/kb/307379
-            // http://docs.oasis-open.org/security/saml/v2.0/saml-schema-protocol-2.0.xsd
-            // http://docs.oasis-open.org/security/saml/v2.0/saml-schema-protocol-2.0.xsd
 
             responseXml = response.OuterXml;
             actionUrl = args.AssertionConsumerServiceUrl;
