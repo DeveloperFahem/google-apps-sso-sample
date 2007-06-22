@@ -14,11 +14,10 @@
 
 using System;
 using System.IO;
+using System.IO.Compression;
 using System.Reflection;
 using System.Text;
 using System.Xml;
-
-using ICSharpCode.SharpZipLib.Zip.Compression;
 
 namespace Google.Apps.SingleSignOn
 {
@@ -37,15 +36,17 @@ namespace Google.Apps.SingleSignOn
             // convert from Base64
             byte[] compressedBytes = Convert.FromBase64String(packedText);
 
-            Inflater inflater = new Inflater(true);
-            inflater.SetInput(compressedBytes);
+            DeflateStream inflateStream = new DeflateStream(new MemoryStream(compressedBytes), CompressionMode.Decompress, false);
 
             byte[] xmlMessageBytes = new byte[20000];
-            int resultLength = inflater.Inflate(xmlMessageBytes);
-
-            if (!inflater.IsFinished)
-            {
-                throw new Exception("didn't allocate enough space to hold decompressed data");
+            int c;
+            int resultLength = 0;
+            while ((c = inflateStream.ReadByte()) >= 0) {
+                if (resultLength >= 20000)
+                {
+                    throw new Exception("didn't allocate enough space to hold decompressed data");
+                }
+                xmlMessageBytes[resultLength++] = (byte)c;
             }
 
             string result = Encoding.UTF8.GetString(xmlMessageBytes, 0, resultLength);
