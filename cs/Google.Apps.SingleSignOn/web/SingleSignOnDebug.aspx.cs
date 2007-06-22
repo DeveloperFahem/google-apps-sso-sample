@@ -35,11 +35,11 @@ namespace Google.Apps.SingleSignOn.Web
     public partial class SingleSignOnDebug : System.Web.UI.Page
     {
 
-        protected string _actionUrl = string.Empty;
+        protected string actionUrl = string.Empty;
 
         protected string ActionUrl
         {
-            get { return _actionUrl; }
+            get { return actionUrl; }
         }
 
         protected void Page_Load(object sender, EventArgs e)
@@ -77,7 +77,7 @@ namespace Google.Apps.SingleSignOn.Web
                 SamlParser.CreateSignedResponse(
                     samlRequest, userName, out responseXml, out actionUrl);
 
-                _actionUrl = actionUrl;
+                this.actionUrl = actionUrl;
 
                 LiteralAssertionUrl.Text = actionUrl;
 
@@ -89,7 +89,6 @@ namespace Google.Apps.SingleSignOn.Web
             }
         }
 
-        // TODO: BUG: this is escaping XML characters
         /// <summary>
         /// Formats an Xml string with proper indentation.
         /// </summary>

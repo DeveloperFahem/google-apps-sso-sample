@@ -35,11 +35,11 @@ namespace Google.Apps.SingleSignOn.Web
 
         protected Literal LiteralAssertionUrl;
 
-        protected string _actionUrl = string.Empty;
+        protected string actionUrl = string.Empty;
 
         protected string ActionUrl
         {
-            get { return _actionUrl; }
+            get { return actionUrl; }
         }
 
         protected void Page_Load(object sender, System.EventArgs e)
@@ -75,7 +75,7 @@ namespace Google.Apps.SingleSignOn.Web
                 SamlParser.CreateSignedResponse(
                     samlRequest, userName, out responseXml, out actionUrl);
 
-                _actionUrl = actionUrl;
+                this.actionUrl = actionUrl;
 
                 SAMLResponse.Value = responseXml;
                 RelayState.Value = relayState;
