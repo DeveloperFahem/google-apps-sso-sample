@@ -11,7 +11,6 @@ Building the sample application with Microsoft Visual Studio 2005
 1.  Extract the .zip file to a local directory, e.g. C:\projects\Google.Apps.SingleSignOn.  The contents are:
 
     key - test certificates
-    lib - third party libraries
     src - C# source code
     web - ASP.NET source code
     VS2005.sln - Visual Studio 2005 solution file.
@@ -75,7 +74,7 @@ Creating and installing a certificate
 Customizing authentication and authorization logic
 --------------------------------------------------
 
-Edit the Page_Load method in C:\projects\Google.Apps.SingleSignOn\web\SingleSignOn.asp.cs to place restrictions on who can log in to Google Apps for this domain.  The sample application does not verify the credentials.
+Edit the Page_Load method in C:\projects\Google.Apps.SingleSignOn\web\SingleSignOn.aspx.cs to place restrictions on who can log in to Google Apps for this domain.  The sample application does not verify the credentials.
 
 It may be helpful in development to view the SAML request, SAML response, and RelayState values.  To see this information, edit C:\projects\Google.Apps.SingleSignOn\web\Web.config and set the Google.Apps.SingleSignOn.Url to SingleSignOnDebug.aspx instead of SingleSignOn.aspx.
 
