@@ -79,6 +79,12 @@ Edit the Page_Load method in C:\projects\Google.Apps.SingleSignOn\web\SingleSign
 It may be helpful in development to view the SAML request, SAML response, and RelayState values.  To see this information, edit C:\projects\Google.Apps.SingleSignOn\web\Web.config and set the Google.Apps.SingleSignOn.Url to SingleSignOnDebug.aspx instead of SingleSignOn.aspx.
 
 
+Acknowledgements
+----------------
+
+This sample application is derived from a more complete SSO/Provisioning application written by Bill Mers <bmers@ltech.com>.  We thank him for his contribution to this open-source project.
+
+
 Bugs/Feedback
 -------------
 
