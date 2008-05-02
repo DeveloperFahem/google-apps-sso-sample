@@ -27,7 +27,7 @@
 		<Issuer><ISSUER_DOMAIN></Issuer>
 		<Subject>
 			<NameID
-				Format="urn:oasis:names:tc:SAML:2.0:nameid-format:emailAddress">
+				Format="urn:oasis:names:tc:SAML:1.1:nameid-format:emailAddress">
 				<USERNAME_STRING>
 			</NameID>
 			<SubjectConfirmation Method="urn:oasis:names:tc:SAML:2.0:cm:bearer"/>
