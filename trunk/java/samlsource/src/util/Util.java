@@ -42,9 +42,12 @@ import java.security.PublicKey;
 import java.security.spec.InvalidKeySpecException;
 import java.security.spec.PKCS8EncodedKeySpec;
 import java.security.spec.X509EncodedKeySpec;
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Random;
+import java.util.TimeZone;
 
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -62,6 +65,12 @@ public class Util {
   private static final char[] charMapping = {
     'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o',
     'p'};
+  private static final DateFormat DATE_TIME_FORMAT = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
+  static {
+    DATE_TIME_FORMAT.setTimeZone(TimeZone.getTimeZone("UTC"));
+  }
+  private static final int ASSERTION_NOT_BEFORE_MINUTES = -5;
+  private static final int ASSERTION_NOT_ON_OR_AFTER_MINUTES = 10;
 
   /**
    * Returns a String containing the contents of the file located at the
@@ -268,16 +277,38 @@ public class Util {
 
   /**
    * Gets the current date and time in the format specified by xsd:dateTime in
-   * UTC form, as described in SAML 2.0 core 1.2.2 This will also apply to
+   * UTC form, as described in SAML 2.0 core 1.3.3 This will also apply to
    * Version 1.1
    * 
    * @return the date and time as a String
    */
   public static String getDateAndTime() {
-    SimpleDateFormat dayFormat = new SimpleDateFormat("yyyy-MM-dd");
-    SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm:ss");
-
     Date date = new Date();
-    return dayFormat.format(date) + 'T' + timeFormat.format(date) + 'Z';
+    return DATE_TIME_FORMAT.format(date);
   }
+
+  /**
+   * Gets the date and time for the beginning of the Assertion time interval in
+   * as specified by SAML v2.0 section 2.5.1.
+   *
+   * @return the date and time as a String
+   */
+  public static String getNotBeforeDateAndTime() {
+    Calendar beforeCal = Calendar.getInstance();
+    beforeCal.add(Calendar.MINUTE, ASSERTION_NOT_BEFORE_MINUTES);
+    return DATE_TIME_FORMAT.format(beforeCal.getTime());
+  }
+
+  /**
+   * Gets the date and time for the end of the Assertion time interval in
+   * as specified by SAML v2.0 section 2.5.1.
+   *
+   * @return the date and time as a String
+   */
+  public static String getNotOnOrAfterDateAndTime() {
+    Calendar afterCal = Calendar.getInstance();
+    afterCal.add(Calendar.MINUTE, ASSERTION_NOT_ON_OR_AFTER_MINUTES);
+    return DATE_TIME_FORMAT.format(afterCal.getTime());
+  }
+
 }

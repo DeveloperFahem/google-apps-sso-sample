@@ -316,8 +316,8 @@ public class ProcessResponseServlet extends HttpServlet {
           // Check for valid parameter values for SAML response
 
           // First, verify that the NotBefore and NotOnOrAfter values are valid
-          String notBefore = "2003-04-17T00:46:02Z";
-          String notOnOrAfter = "2008-04-17T00:51:02Z";
+          String notBefore = Util.getNotBeforeDateAndTime();
+          String notOnOrAfter = Util.getNotOnOrAfterDateAndTime();
           request.setAttribute("notBefore", notBefore);
           request.setAttribute("notOnOrAfter", notOnOrAfter);
 
@@ -327,7 +327,7 @@ public class ProcessResponseServlet extends HttpServlet {
               "ERROR: Invalid NotBefore date specified - " + notBefore);
           } else if (!validSamlDateFormat(notOnOrAfter)) {
             continueLogin = false;
-            request.setAttribute("notOnOrAfter", "2008-04-17T00:51:02Z");
+            request.setAttribute("notOnOrAfter", notOnOrAfter);
             request.setAttribute("error",
               "ERROR: Invalid NotOnOrAfter date specified - " + notOnOrAfter);
           } 
@@ -352,4 +352,3 @@ public class ProcessResponseServlet extends HttpServlet {
     request.getRequestDispatcher(returnPage).include(request, response);
   }
 }
-
