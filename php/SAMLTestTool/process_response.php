@@ -106,9 +106,18 @@ function signResponse($responseXmlString, $pubKey, $privKey) {
   // The path to xmlsec/xmlsec1 may need to be adjusted here.
   // xmlsec supports many key types, which can be selected
   // by using other command-line parameters.
-  $cmd = 'C:\libs\xmlsec-win32\xmlsec sign --privkey-pem ' . $privKey . 
+  if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {
+    // on Windows the anonymous IIS user account needs access to run cmd.exe
+    // this can be done with the following command line:
+    // cacls %COMSPEC% /E /G %COMPUTERNAME%\IUSR_%COMPUTERNAME%:R
+    $cmd = 'C:\libs\xmlsec-win32\xmlsec sign --privkey-pem ' . $privKey . 
 	     ' --pubkey-der ' . $pubKey . ' --output ' . $tempFileName . 
 	     '.out ' . $tempFileName;
+  } else {
+    $cmd = '/usr/bin/xmlsec1 sign --privkey-pem ' . $privKey .
+             ' --pubkey-der ' . $pubKey . ' --output ' . $tempFileName .
+             '.out ' . $tempFileName;
+  }
   exec($cmd, $resp);
   var_dump($resp);
   unlink($tempFileName);
