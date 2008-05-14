@@ -71,6 +71,18 @@ Creating and installing a certificate
 5.  Edit C:\projects\Google.Apps.SingleSignOn\web\Web.config and set the correct path for Google.Apps.SingleSignOn.PfxFile as created in step 1.
 
 
+Testing the sample application
+------------------------------
+
+1.  Open a browser to Google Apps email http://mail.google.com/a/<your domain name>
+
+2.  Verify that the browser redirects to the sample application  http://localhost/GoogleAppsSso/Prompt.aspx
+
+3.  Enter a valid Google Apps username and any value for password.  (See below for customizing the authentication and authorization logic.)
+
+4.  Verify that after you sign in you are able access Google Apps email.
+
+
 Customizing authentication and authorization logic
 --------------------------------------------------
 
