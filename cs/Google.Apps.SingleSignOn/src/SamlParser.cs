@@ -68,8 +68,8 @@ namespace Google.Apps.SingleSignOn
             responseNode.SelectSingleNode("@ID", ns).Value = SamlUtility.CreateId();
             responseNode.SelectSingleNode("@IssueInstant", ns).Value = DateTime.Now.ToString(DateFormatter);
 
-            DateTime notBefore = DateTime.Now.AddDays(-1);
-            DateTime notOnOrAfter = DateTime.Now.AddDays(1);
+            DateTime notBefore = System.DateTime.Now.ToUniversalTime().AddMinutes(-5);
+            DateTime notOnOrAfter = System.DateTime.Now.ToUniversalTime().AddMinutes(10);
 
             XmlNode assertionNode = responseNode.SelectSingleNode("asrt:Assertion", ns);
             assertionNode.SelectSingleNode("@ID", ns).Value = SamlUtility.CreateId();
