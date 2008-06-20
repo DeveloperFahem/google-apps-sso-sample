@@ -61,7 +61,7 @@ be sent, until a SAML request is received from the service provider. </b>
 ?>
 <form name="IdentityProviderForm" action="process_response.php" method="post">
 <input type="hidden" name="SAMLRequest" value="<?php echo $SAMLRequest; ?>"/>
-<input type="hidden" name="RelayState" value="<?php echo $relayState; ?>"/>
+<input type="hidden" name="RelayState" value="<?php echo htmlentities($relayState); ?>"/>
 <input type="hidden" name="returnPage" value="identity_provider.php">
 <input type="hidden" name="samlAction" value="Generate SAML Response">
 
@@ -136,7 +136,7 @@ be sent, until a SAML request is received from the service provider. </b>
     <div style="display: none">
     <textarea rows=10 cols=80 name="SAMLResponse"><?php echo $samlResponse; ?>
 	</textarea>
-    <textarea rows=10 cols=80 name="RelayState"><?php echo $relayStateURL; ?>
+    <textarea rows=10 cols=80 name="RelayState"><?php echo htmlentities($relayStateURL); ?>
 	</textarea>
     </div>
     </form>
