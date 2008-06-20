@@ -1,0 +1,60 @@
+<project>
+
+  <!-- We expect servlet.jar to be set in build.properties. -->
+  <property file="build.properties"/>
+
+  <!-- These directories are a legacy from the initial release. -->
+  <property name="src" value="${basedir}/samlsource/src"/>
+  <property name="build" value="${basedir}/build"/>
+  <property name="web" value="${basedir}/samltool"/>
+  <property name="web.inf" value="${web}/WEB-INF"/>
+  <property name="lib" value="${web.inf}/lib"/>
+  <path id="third.party.lib">
+    <fileset dir="${lib}">
+      <include name="**/*.jar"/>
+    </fileset>
+    <!-- Add in servlet.jar, which is not distributed with this release. -->
+    <fileset file="${servlet.jar}"/>
+  </path>
+
+  <target name="build"
+      description="Compile Java source files.">
+    <echo>Java version = ${java.version}
+Ant version = ${ant.version}</echo>
+    <mkdir dir="${build}/classes"/>
+    <javac srcdir="${src}" destdir="${build}/classes">
+      <classpath refid="third.party.lib"/>
+    </javac>
+  </target>
+
+  <target name="jar" depends="build"
+      description="Package Java classes into a single .jar file.">
+    <jar destfile="${build}/samltool.jar">
+      <fileset dir="${build}/classes">
+        <include name="**/*.class"/>
+      </fileset>
+    </jar>
+  </target>
+
+  <target name="war" depends="jar"
+      description="Build a war file.">
+    <war destfile="${build}/samltool.war" webxml="${web.inf}/web.xml">
+      <fileset dir="${web}">
+        <!--exclude name=".svn"/-->
+        <exclude name="WEB-INF/**"/>
+      </fileset>
+      <lib dir="${lib}">
+        <include name="*.jar"/>
+      </lib>
+      <lib dir="${build}">
+        <include name="*.jar"/>
+      </lib>
+    </war>
+  </target>
+
+  <target name="clean"
+      description="Delete build files, including .jar and .war files.">
+    <delete dir="${build}"/>
+  </target>
+
+</project>
