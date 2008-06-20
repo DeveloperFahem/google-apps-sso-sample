@@ -22,7 +22,7 @@ limitations under the License.
 
     <script language="javascript"><!--
       function SubmitLoginForm() {
-        document.all.FormSamlResponse.submit();
+        document.forms[0].submit();
       }
     //-->
     </script>
