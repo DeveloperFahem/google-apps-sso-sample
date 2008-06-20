@@ -15,10 +15,18 @@
 				Format="urn:oasis:names:tc:SAML:1.1:nameid-format:emailAddress">
 				<USERNAME_STRING>
 			</NameID>
-			<SubjectConfirmation Method="urn:oasis:names:tc:SAML:2.0:cm:bearer"/>
+			<SubjectConfirmation Method="urn:oasis:names:tc:SAML:2.0:cm:bearer">
+				<SubjectConfirmationData
+					Recipient="<ACS_URL>"
+					NotOnOrAfter="<NOT_ON_OR_AFTER>"
+					InResponseTo="<REQUEST_ID>"/>
+				</SubjectConfirmation>
 		</Subject>
 		<Conditions NotBefore="<NOT_BEFORE>"
 			NotOnOrAfter="<NOT_ON_OR_AFTER>">
+			<AudienceRestriction>
+				<Audience><ACS_URL></Audience>
+			</AudienceRestriction>
 		</Conditions>
 		<AuthnStatement AuthnInstant="<AUTHN_INSTANT>">
 			<AuthnContext>
