@@ -1,0 +1,19 @@
+1.0.1
+-----
+
+New features:
+
+- Added SubjectConfirmationData/@Recipient and AudienceRestriction/Audience
+elements, per SAML 2.0 specification.
+
+Bug fixes:
+
+http://code.google.com/p/google-apps-sso-sample/issues/detail?id=1
+http://code.google.com/p/google-apps-sso-sample/issues/detail?id=6
+http://code.google.com/p/google-apps-sso-sample/issues/detail?id=10
+
+
+1.0
+---
+
+Initial release.
