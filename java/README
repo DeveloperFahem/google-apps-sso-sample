@@ -1,0 +1,43 @@
+
+README
+
+   This distribution contains a SAML demo application written in Java.  It
+   demonstrates an identity provider which authenticates users using the Google
+   Apps Single Sign-On service.
+
+   See this article at the Google Code website for an introduction to the Google
+   Apps Single Sign-On service:
+
+      http://code.google.com/apis/apps/sso/saml_reference_implementation.html
+
+
+REQUIREMENTS
+
+   This application has been tested using the following software.  You may need
+   to install these libraries or packages to run the demo.
+
+    *   Java 5 or later.
+    *   Apache Ant 1.6 or later.
+    *   Java Servlet API 2.4 or later.
+    *   Apache Tomcat 5.5 or later (or equivalent).
+
+
+INSTALL
+
+   1.  Edit build.properties.
+   2.  Build the application with ant: ant war
+   3.  Deploy the resulting .war file to a Servlet container.
+
+   Read this article which describes how use the demo:
+
+      http://code.google.com/apis/apps/sso/saml_reference_implementation_web.html
+
+
+SUPPORT
+
+   Google does not offer any support for this sample code. You can find answers
+   by asking the Google Apps APIs discussion group at:
+
+      http://groups.google.com/group/google-apps-apis
+
+
