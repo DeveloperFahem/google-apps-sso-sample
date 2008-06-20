@@ -67,7 +67,7 @@ You may obtain a copy of the License at
       %>
       <form name="IdentityProviderForm" action="ProcessResponseServlet" method="post">
         <input type="hidden" name="SAMLRequest" value="<%=samlRequest%>"/>
-        <input type="hidden" name="RelayState" value="<%=relayState%>"/>
+        <input type="hidden" name="RelayState" value="<%=RequestUtil.htmlEncode(relayState)%>"/>
         <input type="hidden" name="returnPage" value="identity_provider.jsp">
         <input type="hidden" name="samlAction" value="Generate SAML Response">
 
@@ -137,7 +137,7 @@ You may obtain a copy of the License at
           <form name="acsForm" action="<%=acsURL%>" method="post" target="_blank">
             <div style="display: none">
             <textarea rows=10 cols=80 name="SAMLResponse"><%=samlResponse%> </textarea>
-            <textarea rows=10 cols=80 name="RelayState">http://mail.google.com/a/psosamldemo.net</textarea>
+            <textarea rows=10 cols=80 name="RelayState"><%=RequestUtil.htmlEncode(relayState)%></textarea>
             </div>
           </form>
       <%

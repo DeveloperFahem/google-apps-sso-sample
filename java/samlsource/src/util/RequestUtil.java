@@ -79,6 +79,12 @@ public class RequestUtil {
         encodedString.append("&lt;");
       } else if (c == '>') {
         encodedString.append("&gt;");
+      } else if (c == '\'') {
+        encodedString.append("&apos;");
+      } else if (c == '"') {
+        encodedString.append("&quot;");
+      } else if (c == '&') {
+        encodedString.append("&amp;");
       } else {
         encodedString.append(c);
       }
