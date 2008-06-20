@@ -135,13 +135,15 @@ public class ProcessResponseServlet extends HttpServlet {
   private String[] getRequestAttributes(String xmlString) throws SamlException {
       Document doc = Util.createJdomDoc(xmlString);
       if (doc != null) {
-        String[] samlRequestAttributes = new String[3];
+        String[] samlRequestAttributes = new String[4];
         samlRequestAttributes[0] = doc.getRootElement().getAttributeValue(
           "IssueInstant");
         samlRequestAttributes[1] = doc.getRootElement().getAttributeValue(
           "ProviderName");
         samlRequestAttributes[2] = doc.getRootElement().getAttributeValue(
           "AssertionConsumerServiceURL");
+        samlRequestAttributes[3] = doc.getRootElement().getAttributeValue(
+          "ID");
         return samlRequestAttributes;
       } else {
         throw new SamlException("Error parsing AuthnRequest XML: Null document");
@@ -153,7 +155,8 @@ public class ProcessResponseServlet extends HttpServlet {
    * SAML response template file. Returns the String format of the XML file.
    */
   private String createSamlResponse(String authenticatedUser, String notBefore,
-      String notOnOrAfter) throws SamlException {
+      String notOnOrAfter, String requestId, String acsURL)
+      throws SamlException {
     String filepath = getServletContext().getRealPath(
       "templates/" + samlResponseTemplateFile);
     String samlResponse = Util.readFileContents(filepath);
@@ -166,6 +169,8 @@ public class ProcessResponseServlet extends HttpServlet {
     samlResponse = samlResponse.replace("<NOT_BEFORE>", notBefore);
     samlResponse = samlResponse.replace("<NOT_ON_OR_AFTER>", notOnOrAfter);
     samlResponse = samlResponse.replace("<ASSERTION_ID>", Util.createID());
+    samlResponse = samlResponse.replace("<REQUEST_ID>", requestId);
+    samlResponse = samlResponse.replace("<ACS_URL>", acsURL);
     return samlResponse;
 
   }
@@ -230,9 +235,11 @@ public class ProcessResponseServlet extends HttpServlet {
         String issueInstant = samlRequestAttributes[0];
         String providerName = samlRequestAttributes[1];
         String acsURL = samlRequestAttributes[2];
+        String requestId = samlRequestAttributes[3];
         request.setAttribute("issueInstant", issueInstant);
         request.setAttribute("providerName", providerName);
         request.setAttribute("acsURL", acsURL);
+        request.setAttribute("requestId", requestId);
         request.setAttribute("relayStateURL", relayStateURL);
       } catch (SamlException e) {
         request.setAttribute("error", e.getMessage());
@@ -275,6 +282,7 @@ public class ProcessResponseServlet extends HttpServlet {
         String issueInstant = samlRequestAttributes[0];
         String providerName = samlRequestAttributes[1];
         String acsURL = samlRequestAttributes[2];
+        String requestId = samlRequestAttributes[3];
 
         /*
          * Stage II: Whereas Stage I uses a hardcoded username
@@ -288,6 +296,7 @@ public class ProcessResponseServlet extends HttpServlet {
         request.setAttribute("issueInstant", issueInstant);
         request.setAttribute("providerName", providerName);
         request.setAttribute("acsURL", acsURL);
+        request.setAttribute("requestId", requestId);
         request.setAttribute("domainName", domainName);
         request.setAttribute("username", username);
         request.setAttribute("relayStateURL", relayStateURL);
@@ -336,7 +345,7 @@ public class ProcessResponseServlet extends HttpServlet {
           if (continueLogin) {
             // Generate SAML response contaning specified user name
             String responseXmlString = createSamlResponse(username, notBefore,
-                notOnOrAfter);
+                notOnOrAfter, requestId, acsURL);
 
             // Sign the SAML response XML
             String signedSamlResponse = signResponse(responseXmlString,
