@@ -216,7 +216,7 @@ public class ProcessResponseServlet extends HttpServlet {
    * ProcessResponseServlet. This method's sole purpose is to interact with the
    * user interface that allows you to walk through the steps of the reference
    * implementation. In a production environment, Google's would send SAML
-   * requests using HTTP POST requests.
+   * requests using HTTP redirect.
    * 
    * This method receives an HTTP GET request and then forwards that request on
    * to the identity_provider.jsp file, which is included in Google's SAML
