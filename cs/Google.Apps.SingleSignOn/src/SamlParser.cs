@@ -76,12 +76,24 @@ namespace Google.Apps.SingleSignOn
 
             assertionNode.SelectSingleNode("asrt:Subject/asrt:NameID", ns).InnerText = userName;
 
+            assertionNode.SelectSingleNode("asrt:Subject/asrt:SubjectConfirmation/asrt:SubjectConfirmationData/@Recipient", ns).Value =
+                args.AssertionConsumerServiceUrl;
+
+            assertionNode.SelectSingleNode("asrt:Subject/asrt:SubjectConfirmation/asrt:SubjectConfirmationData/@NotOnOrAfter", ns).Value =
+                notOnOrAfter.ToString(DateFormatter);
+
+            assertionNode.SelectSingleNode("asrt:Subject/asrt:SubjectConfirmation/asrt:SubjectConfirmationData/@InResponseTo", ns).Value =
+                args.Id;
+            
             assertionNode.SelectSingleNode("asrt:Conditions/@NotBefore", ns).Value =
                 notBefore.ToString(DateFormatter);
 
             assertionNode.SelectSingleNode("asrt:Conditions/@NotOnOrAfter", ns).Value =
                 notOnOrAfter.ToString(DateFormatter);
 
+            assertionNode.SelectSingleNode("asrt:Conditions/asrt:AudienceRestriction/asrt:Audience", ns).InnerText =
+                args.AssertionConsumerServiceUrl;
+            
             assertionNode.SelectSingleNode("asrt:AuthnStatement/@AuthnInstant", ns).Value =
                 DateTime.Now.ToString(DateFormatter);
 
