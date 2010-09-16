@@ -10,9 +10,9 @@ REQUIREMENTS
    The SAML Demo Tool for PHP has been tested using the following software.
    You may need to install these libraries or packages to run this demo code.
 
-    *   Apache HTTP Server v2.2.4
-    *   PHP v5.2.1 or later
-    *   xmlsec v1.2.10 or later. xmlsec is a C library and command-line 
+    *   Apache HTTP Server v2.0.55
+    *   PHP v5.1.2 or later
+    *   xmlsec v1.2.9 or later. xmlsec is a C library and command-line 
         executable for signing, verifying, encrypting and decrypting XML 
 	documents. The demo tool uses the xmlsec commandline executable for 
 	signing SAML responses.
